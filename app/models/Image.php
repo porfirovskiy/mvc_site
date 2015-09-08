@@ -14,5 +14,5 @@ namespace SiteMicroEngine\App\Models;
  * @author porfirovskiy
  */
 class Image extends Model {
-    //put your code here
+
 }

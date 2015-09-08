@@ -7,7 +7,7 @@
  */
 
 namespace SiteMicroEngine\App\Controllers;
-
+use SiteMicroEngine\App\Modules as Modules;
 /**
  * Description of Images
  *
@@ -15,12 +15,13 @@ namespace SiteMicroEngine\App\Controllers;
  */
 class Image extends Controller {
     
-    public function actionCreate(){
-        $image = $_FILES['file_image'];
-        $files = new \SiteMicroEngine\App\Modules\Files();
-        $model = $this->getModel();
+    public function actionCreate() {
+        //$image = $_FILES['file_image'];
+        $files = new Modules\Files();
+        var_dump($files->getLastSDir());
+        //$model = $this->getModel();
         
-        $model->save();
+        //$model->save();
         
         $this->render('create');
     }
