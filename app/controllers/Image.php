@@ -18,7 +18,7 @@ class Image extends Controller {
     public function actionCreate() {
         //$image = $_FILES['file_image'];
         $files = new Modules\Files();
-        var_dump($files->getLastSDir());
+        $files->saveFile($e=1);
         //$model = $this->getModel();
         
         //$model->save();
