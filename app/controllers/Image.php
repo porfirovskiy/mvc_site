@@ -7,22 +7,44 @@
  */
 
 namespace SiteMicroEngine\App\Controllers;
+
 use SiteMicroEngine\App\Modules as Modules;
+
 /**
  * Description of Images
  *
  * @author porfirovskiy
  */
 class Image extends Controller {
-    
+
     public function actionCreate() {
-        //$image = $_FILES['file_image'];
-        $files = new Modules\Files();
-        $files->saveFile($e=1);
-        //$model = $this->getModel();
+
+        $model = $this->getModel();
+        $model->title = $_POST['title'];
+        $model->description = $_POST['description'];
+        $model->date = date("Y-m-d H:i:s");
         
-        //$model->save();
-        
+        if (isset($_POST['add_image'])) {
+            if ($model->validateForm()) {
+                
+                $files = new Modules\Files();
+                $image = $files->saveFile();
+                
+                if ($image) {
+                    echo 'ok';
+                    //$model->size = $image['size'];
+                    $model->save();
+                }
+                else {
+                    echo 'not ok';
+                }
+                
+            }
+            else {
+                echo 'Name or description is empty!';
+            }
+        }
         $this->render('create');
     }
+
 }

@@ -4,7 +4,7 @@
         <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
         <input name="file_image" type="file" />
         <label>Insert name:</label>
-        <input type="text" name="name"><br>
+        <input type="text" name="title"><br>
         <label>Insert description:</label>
         <textarea rows="10" cols="45" name="description"></textarea>
         <input type="submit" name="add_image" value="Add">

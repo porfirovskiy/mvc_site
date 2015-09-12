@@ -16,19 +16,28 @@ namespace SiteMicroEngine\App\Modules;
 class Files extends Module {
     
     const dir = 'images';
-
-    public function saveFile($file) {
-        var_dump($this->getSubDir());
-        /*
-        $uploadFile = self::dir.$this->getSubDir().basename($_FILES['file_image']['name']);
+    
+    /**
+     * Load image file 
+     * @return boolean, array
+     */
+    public function saveFile() {
+        
+        $uploadFile = self::dir.'/'.$this->getSubDir().'/'.basename($_FILES['file_image']['name']);
+        //var_dump($uploadFile);
         if (move_uploaded_file($_FILES['file_image']['tmp_name'], $uploadFile)) {
             return true;
         }
         else {
             return false;
-        }*/
+        }
+        
     }
     
+    /**
+     * Get sub directory for save new image 
+     * @return string
+     */
     public function getSubDir() {
         $subDir = $this->getLastSDir();
         if ($subDir) {
@@ -44,15 +53,14 @@ class Files extends Module {
             mkdir(self::dir.'\1');
             return '1';
         }
-        
     }
     
-    public function createSubDir() {
-        
-    }
+    /**
+     * Return last directory with images
+     * @return boolean or string
+     */
     
     public function getLastSDir() {
-        
         $dirs = scandir(self::dir);
         if (count($dirs) > 2) {
             asort($dirs);
@@ -60,7 +68,6 @@ class Files extends Module {
         } else {
             return false;
         }
-        
     }
 
 }
