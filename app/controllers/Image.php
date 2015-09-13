@@ -31,9 +31,11 @@ class Image extends Controller {
                 $image = $files->saveFile();
                 
                 if ($image) {
-                    echo 'ok';
-                    //$model->size = $image['size'];
+                    $model->link = $image['link'];
+                    $model->uploadName = $image['name'];
+                    $model->size = $image['size'];
                     $model->save();
+                    echo 'ok';
                 }
                 else {
                     echo 'not ok';
@@ -45,6 +47,12 @@ class Image extends Controller {
             }
         }
         $this->render('create');
+    }
+    
+    public function actionView($params) {
+        $model = $this->getModel();
+        $image = $model->getImage($params['id']);
+        $this->render('view', $image);
     }
 
 }

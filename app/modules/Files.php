@@ -24,12 +24,20 @@ class Files extends Module {
     public function saveFile() {
         
         $uploadFile = self::dir.'/'.$this->getSubDir().'/'.basename($_FILES['file_image']['name']);
-        //var_dump($uploadFile);
-        if (move_uploaded_file($_FILES['file_image']['tmp_name'], $uploadFile)) {
-            return true;
-        }
-        else {
-            return false;
+        $imageinfo = $_FILES['file_image'];
+        //echo '<pre>';var_dump($_FILES['file_image']);
+        if ($this->checkUpload()) {
+            if (move_uploaded_file($_FILES['file_image']['tmp_name'], $uploadFile)) {
+                $imageinfo['link'] = $uploadFile;
+                //echo '<pre>';var_dump($imageinfo);
+                return $imageinfo;
+            }
+            else {
+                return FALSE;
+            }
+        } else {
+           echo "Sorry, we only accept images!";
+           return FALSE;
         }
         
     }
@@ -59,14 +67,26 @@ class Files extends Module {
      * Return last directory with images
      * @return boolean or string
      */
-    
     public function getLastSDir() {
         $dirs = scandir(self::dir);
         if (count($dirs) > 2) {
             asort($dirs);
             return array_pop($dirs);
         } else {
-            return false;
+            return FALSE;
+        }
+    }
+    
+    /**
+     * Check upload of file
+     * @return boolean
+     */
+    public function checkUpload() {
+        $imageinfo = getimagesize($_FILES['file_image']['tmp_name']);
+        if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg' && $imageinfo['mime'] != 'image/jpg') {
+            return FALSE;
+        } else {
+            return TRUE;
         }
     }
 
