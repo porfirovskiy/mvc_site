@@ -16,7 +16,7 @@ namespace SiteMicroEngine\App\Controllers;
 class Tag extends Controller {
     public function actionIndex() {
         $model = $this->getModel();
-        $tags = $model->getAllTages();
+        $tags = $model->getAllTags();
         $this->render('index', $tages);
     }
 }

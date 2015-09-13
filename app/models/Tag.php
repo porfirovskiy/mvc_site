@@ -14,5 +14,13 @@ namespace SiteMicroEngine\App\Models;
  * @author porfirovskiy
  */
 class Tag extends Model {
-    //put your code here
+    
+    public $id;
+    public $tag;
+    public $date;
+
+    public function getAllTags() {
+        $tags = $this->dB->query('SELECT id, tag, date FROM tags')->fetchAll();
+        return $tags;
+    }
 }
