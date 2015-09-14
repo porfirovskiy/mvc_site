@@ -3,10 +3,55 @@
     <form enctype="multipart/form-data" action="/image/create" method="post">
         <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
         <input name="file_image" type="file" />
+        <br>
         <label>Insert name:</label>
-        <input type="text" name="title"><br>
+        <input type="text" name="title">
+        <br>
         <label>Insert description:</label>
         <textarea rows="10" cols="45" name="description"></textarea>
+        <br>
+        <label>Select tag: </label>
+        <select name="tags_list">
+        </select>
+        <br>
+        <label>or </label>
+        <label>create new tag:</label>
+        <input type="tag" name="title_tag">
+        <button type="button" name="new_tag">button</button>
+        <br>
         <input type="submit" name="add_image" value="Add">
     </form>
 </div>
+<!--
+    Script for create new tag and for get list of createds tags
+-->
+<script>
+    $(document).ready(function(){
+        var button = "button[name='new_tag']";
+        var tag = "input[name='title_tag']";
+        var tags_list = "select[name='tags_list']";
+        
+        $.ajax({
+                type: 'POST',
+                url: "/tag/list",
+                //data: $(tag).serialize(),
+                success: function(data) {
+                    var list = jQuery.parseJSON(data);
+                    //alert(list[0].tag);
+                    list.forEach(function(item) {
+                        $(tags_list).append("<option>"+item.tag+"</option>");
+                    });
+                },
+        });
+        
+        $(button).click(function(){
+            $.ajax({
+                type: 'POST',
+                url: "/tag/create",
+                data: $(tag).serialize(),
+                //success: success,
+            });
+        });
+    });
+    /**/
+</script>

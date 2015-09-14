@@ -7,6 +7,7 @@
  */
 
 namespace SiteMicroEngine\App\Models;
+use PDO;
 
 /**
  * Description of Tag
@@ -22,5 +23,17 @@ class Tag extends Model {
     public function getAllTags() {
         $tags = $this->dB->query('SELECT id, tag, date FROM tags')->fetchAll();
         return $tags;
+    }
+    
+    public function save() {
+        $tag = $this->dB->prepare('INSERT INTO tags VALUES(NULL, :tag, :date)');
+        $tag->bindValue(':tag', $this->tag, PDO::PARAM_STR);
+        $tag->bindValue(':date', $this->date, PDO::PARAM_INT);
+        $tag->execute();
+    }
+    
+    public function getTagsList() {
+        $list = $this->dB->query('SELECT tag FROM tags')->fetchAll();
+        return $list;
     }
 }
