@@ -32,8 +32,12 @@ class Tag extends Controller {
         if ($this->isAjax()) {
             $model->tag = $_POST['title_tag'];
             $model->date = date("Y-m-d H:i:s");
-            $model->save();
-            echo json_encode($model->getLastRecord());
+            if ($model->validateForm() && !$model->ExistTag()) {
+                $model->save();
+                echo json_encode($model->getLastRecord());
+            } else {
+                echo 0;
+            }
         }
         
     }

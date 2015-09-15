@@ -52,8 +52,12 @@
                 data: $(tag).serialize(),
                 success: function(newTag) {
                     newTag = jQuery.parseJSON(newTag);
-                    newTag = newTag[0];
-                    $(tags_list).append('<option value="'+newTag.id+'">'+newTag.tag+'</option>'); 
+                    if (newTag !== 0) {
+                        newTag = newTag[0];
+                        $(tags_list).append('<option value="'+newTag.id+'">'+newTag.tag+'</option>'); 
+                    } else {
+                        alert('Enter teg or this tag already exist!');
+                    }
                 },
             });
         });
