@@ -33,6 +33,7 @@ class Tag extends Controller {
             $model->tag = $_POST['title_tag'];
             $model->date = date("Y-m-d H:i:s");
             $model->save();
+            echo json_encode($model->getLastRecord());
         }
         
     }

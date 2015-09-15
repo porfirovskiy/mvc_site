@@ -23,7 +23,7 @@ class Image extends Controller {
         $model->title = $_POST['title'];
         $model->description = $_POST['description'];
         $model->date = date("Y-m-d H:i:s");
-        
+
         if (isset($_POST['add_image'])) {
             if ($model->validateForm()) {
                 
@@ -35,6 +35,12 @@ class Image extends Controller {
                     $model->uploadName = $image['name'];
                     $model->size = $image['size'];
                     $model->save();
+                    // connect image vs tag in table img_tag 
+                    $imgTag = new \SiteMicroEngine\App\Models\ImgTag();
+                    $imgTag->id_image = $model->getLastId();
+                    $imgTag->id_tag = $_POST['id_tag'];
+                    $imgTag->save();
+                    
                     echo 'ok';
                 }
                 else {

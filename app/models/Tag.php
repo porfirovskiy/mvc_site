@@ -33,7 +33,12 @@ class Tag extends Model {
     }
     
     public function getTagsList() {
-        $list = $this->dB->query('SELECT tag FROM tags')->fetchAll();
+        $list = $this->dB->query('SELECT id, tag FROM tags')->fetchAll();
         return $list;
+    }
+    
+    public function getLastRecord() {
+        $record = $this->dB->query('SELECT id, tag FROM tags ORDER BY id DESC LIMIT 1')->fetchAll();
+        return $record;
     }
 }

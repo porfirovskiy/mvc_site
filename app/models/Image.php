@@ -43,6 +43,13 @@ class Image extends Model {
         return $image;
     }
     
+    public function getLastId() {
+         $image= $this->dB->prepare('select id FROM images ORDER BY id DESC LIMIT 1');
+         $image->execute();
+         $image = $image->fetch(PDO::FETCH_LAZY);;
+         return $image->id;
+    }
+    
     public function validateForm() {
         if (isset($this->title) && isset($this->description)) {
             if (!empty($this->title) && !empty($this->description)) {

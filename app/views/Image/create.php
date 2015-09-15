@@ -11,12 +11,15 @@
         <textarea rows="10" cols="45" name="description"></textarea>
         <br>
         <label>Select tag: </label>
-        <select name="tags_list">
+        <select name="id_tag">
         </select>
         <br>
         <label>or </label>
         <label>create new tag:</label>
         <input type="tag" name="title_tag">
+        
+        <!--<input type="hidden" name="title">-->
+        
         <button type="button" name="new_tag">button</button>
         <br>
         <input type="submit" name="add_image" value="Add">
@@ -29,17 +32,15 @@
     $(document).ready(function(){
         var button = "button[name='new_tag']";
         var tag = "input[name='title_tag']";
-        var tags_list = "select[name='tags_list']";
+        var tags_list = "select[name='id_tag']";
         
         $.ajax({
                 type: 'POST',
                 url: "/tag/list",
-                //data: $(tag).serialize(),
                 success: function(data) {
                     var list = jQuery.parseJSON(data);
-                    //alert(list[0].tag);
                     list.forEach(function(item) {
-                        $(tags_list).append("<option>"+item.tag+"</option>");
+                        $(tags_list).append('<option value="'+item.id+'">'+item.tag+'</option>');
                     });
                 },
         });
@@ -49,7 +50,11 @@
                 type: 'POST',
                 url: "/tag/create",
                 data: $(tag).serialize(),
-                //success: success,
+                success: function(newTag) {
+                    newTag = jQuery.parseJSON(newTag);
+                    newTag = newTag[0];
+                    $(tags_list).append('<option value="'+newTag.id+'">'+newTag.tag+'</option>'); 
+                },
             });
         });
     });
