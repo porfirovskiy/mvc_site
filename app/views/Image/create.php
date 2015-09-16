@@ -96,6 +96,7 @@ $(document).ready(function(){
       }
     });
   */
+ 
         
         /*var button = "button[name='new_tag']";
         var tag = "input[name='title_tag']";
