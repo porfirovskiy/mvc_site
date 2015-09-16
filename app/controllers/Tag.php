@@ -48,8 +48,14 @@ class Tag extends Controller {
             echo json_encode($model->getTagsList());
         }
     }
+    
+    public function actionAutoComplete() {
+        $model = $this->getModel();
+        $model->tag = $_GET['term'];
+        echo json_encode($model->getAutCopleteTags());
+    }
 
-        /**
+    /**
      * Check is ajax request
      * @return boolean
      */

@@ -42,6 +42,13 @@ class Tag extends Model {
         $record = $this->dB->query('SELECT id, tag FROM tags ORDER BY id DESC LIMIT 1')->fetchAll();
         return $record;
     }
+    
+    public function getAutCopleteTags() {
+        $tags = $this->dB->prepare('SELECT tag FROM tags WHERE tag LIKE ?');
+        $tag = "%$this->tag%";
+        $tags->execute([$tag]);
+        return $tags->fetchAll(PDO::FETCH_COLUMN);
+    }
 
     public function validateForm() {
         if (isset($this->tag) && isset($this->date)) {
