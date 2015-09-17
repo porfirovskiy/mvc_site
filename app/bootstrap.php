@@ -16,4 +16,5 @@ require_once 'core/Module.php';
 require_once 'app/modules/Files.php';
 //other models
 require_once 'app/models/ImgTag.php';
+require_once 'app/models/Tag.php';
 ?>

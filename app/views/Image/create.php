@@ -11,9 +11,11 @@
         <textarea rows="10" cols="45" name="description"></textarea>
         <br>
         <label>Insert tags: </label>
-        <input type="text" name="id_tag" class="input_tags">
+        <input type="text" id="input_tag" class="input_tags">
+        <button type="button" id="add_tag">add</button>
         <br>
-        <button type="button" name="new_tag">button</button>
+        <input type="hidden" name="tags" id="tags">
+        <ul id="created_tags"></ul>
         <br>
         <input type="submit" name="add_image" value="Add">
     </form>
@@ -24,79 +26,47 @@
 <script>
 
 $(document).ready(function(){
+    
+    var tag = $("#input_tag");
     // autocomplete function
-    $("input[name='id_tag']" ).autocomplete({
+    tag.autocomplete({
         source: '/tag/autocomplete',
         minLength: 1
     });
     
-    
-    
-         var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    
-    function split(val){
-      return val.split( /,\s*/ );
+    function notEmpty(val) {
+        if (val === '') {
+            return false;
+        } else {
+            return true;
+        }
     }
-    function extractLast(term){
-      return split(term).pop();
+    
+    function setHidden(tag) {
+        var tags = $("#tags");
+        var hiddenInput = tags.val();
+        if (hiddenInput.length === 0) {
+            tags.val(tag);
+        } else {
+            tags.val(hiddenInput+','+tag);
+        }
+        
     }
-    /*
-    $("#tags")
-    // остановить смену фокуса, если выделен один из элементов автозаполнения
-    .bind( "keydown", function(event){
-      if ( event.keyCode === $.ui.keyCode.TAB &&
-      $(this).data("autocomplete").menu.active ){
-        event.preventDefault();
-      }
-    })
-    .autocomplete({
-      minLength: 0,
-      source: function(request, response){
-        // делегируем поиск элементов автозаполнения обратно плагину, предварительно убрав уже выбранные элементы
-        response( $.ui.autocomplete.filter(
-        availableTags, extractLast(request.term)) );
-      },
-      focus: function(){
-        // отменяем вставку значения на получение фокуса
-        return false;
-      },
-      select: function(event, ui){
-        var terms = split(this.value);
-        // удаляем вводимую часть текста и помещаем вместо нее выбранный элемент
-        terms.pop();
-        terms.push(ui.item.value);
-        // собираем все элементы в строку, разделяя их запятыми и вставляем 
-        // строку обратно в текстовое поле
-        terms.push("");
-        this.value = terms.join(", ");
-        return false;
-      }
+    
+    var tags = [];
+    
+    $("#add_tag").click(function(){
+        var val = tag.val();
+        if (notEmpty(val)) {
+            if (tags.indexOf(val) === -1) {
+                tags.push(val);
+                setHidden(val);
+                $("#created_tags").append("<li>"+val+"</li>");
+                //console.log(tags);
+                tag.val('');
+            }
+        }
     });
-  */
- 
         
         /*var button = "button[name='new_tag']";
         var tag = "input[name='title_tag']";
