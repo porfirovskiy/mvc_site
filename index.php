@@ -15,7 +15,7 @@ require_once("views/footer.php");
 */
 /* NEW VERSION - MVC */
 //session_start();
-ini_set('error_reporting', E_ALL);
+//ini_set('error_reporting', E_ALL);
 session_start();
 require_once 'app/bootstrap.php';
 SiteMicroEngine\App\Core\Router::start();
