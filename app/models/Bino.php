@@ -7,7 +7,6 @@
  */
 
 namespace SiteMicroEngine\App\Models;
-//use PDO;
 
 /**
  * Description of Bino
