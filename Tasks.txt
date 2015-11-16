@@ -1,0 +1,15 @@
+- roles
+- refactoring!!!!!
+- comments
+- comments in code!!!!!!!!!!!!!!!!!
+- XSS and other injections in forms validate!
+- password validation!!!!!!!
+- App class with t()
+- config classпп
+- git
+- название фото как вотермарка!
+
+!!!Лучше всего объединить пользователей в группы, а для каждой группы назначить права, так проще.!!!!
+
+
+- узко специализированный поисковик
